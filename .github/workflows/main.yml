@@ -31,11 +31,13 @@ jobs:
         shell: bash
         env: 
           ENVARS: ${{ secrets.ENVIRONMENT_VARIABLES }}
+          AINV: ${{ secrets.ANSIBLE_INVENTORY }}
+          APKEY: ${{ secrets.ANSIBLE_PRIVATE_KEY }}
         run: |
           echo "$ENVARS" > ./packages/ui/.env
           echo "$ENVARS" > ./packages/api/.env
           echo "$ENVARS" > ./ansible/.env
-          echo ${{ secrets.ANSIBLE_INVENTORY }} > ./ansible/inventory.ini
+          echo "$AINV" > ./ansible/inventory.ini
 # echo ${{ secrets.ANSIBLE_PRIVATE_KEY }} > ./ansible/key.pem
 # chmod 400 ./ansible/key.pem
 
