@@ -35,11 +35,10 @@ jobs:
           echo "$ENVARS" > ./packages/ui/.env
           echo "$ENVARS" > ./packages/api/.env
           echo "$ENVARS" > ./ansible/.env
-          echo ${{ secrets.ANSIBLE_INVENTORY }} > ./ansible/inventory.ini
-          echo ${{ secrets.ANSIBLE_PRIVATE_KEY }} > ./ansible/key.pem
-          chmod 400 ./ansible/key.pem
-          
-      
+# echo ${{ secrets.ANSIBLE_INVENTORY }} > ./ansible/inventory.ini
+# echo ${{ secrets.ANSIBLE_PRIVATE_KEY }} > ./ansible/key.pem
+# chmod 400 ./ansible/key.pem
+
       - name: Deploy with Ansible
         shell: bash
         run: |
