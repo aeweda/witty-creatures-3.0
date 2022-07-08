@@ -33,12 +33,12 @@ jobs:
           export ANSIBLE_STDOUT_CALLBACK=yaml
           export FORCE_COLOR=1
           export TERM=xterm-color
-          echo ${{secrets.ENVIRONMENT_VARIABLES}} > ./packages/ui/.env
-          echo ${{secrets.ENVIRONMENT_VARIABLES}} > ./packages/api/.env
-          echo ${{{secrets.ENVIRONMENT_VARIABLES}}} > ./ansible/.env
+          echo ${{ secrets.ENVIRONMENT_VARIABLES }} > ./packages/ui/.env
+          echo ${{ secrets.ENVIRONMENT_VARIABLES }} > ./packages/api/.env
+          echo ${{ secrets.ENVIRONMENT_VARIABLES }} > ./ansible/.env
           cd ansible
-          echo ${{secrets.ANSIBLE_INVENTORY}} > ./inventory.ini
-          echo ${{secrets.ANSIBLE_PRIVATE_KEY}} > ./key.pem
+          echo ${{ secrets.ANSIBLE_INVENTORY }} > ./inventory.ini
+          echo ${{ secrets.ANSIBLE_PRIVATE_KEY }} > ./key.pem
           chmod 400 ./key.pem
           ansible-playbook ./helpers/docker-playbook.yml -vv
           ansible-playbook playbook.yml -vv
