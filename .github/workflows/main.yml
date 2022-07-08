@@ -35,18 +35,18 @@ jobs:
           echo "$ENVARS" > ./packages/ui/.env
           echo "$ENVARS" > ./packages/api/.env
           echo "$ENVARS" > ./ansible/.env
-# echo ${{ secrets.ANSIBLE_INVENTORY }} > ./ansible/inventory.ini
+          echo ${{ secrets.ANSIBLE_INVENTORY }} > ./ansible/inventory.ini
 # echo ${{ secrets.ANSIBLE_PRIVATE_KEY }} > ./ansible/key.pem
 # chmod 400 ./ansible/key.pem
 
-      - name: Deploy with Ansible
-        shell: bash
-        run: |
-          cd ansible
-          export ANSIBLE_CONFIG=./ansible.cfg
-          export ANSIBLE_FORCE_COLOR=True
-          export ANSIBLE_STDOUT_CALLBACK=yaml
-          export FORCE_COLOR=1
-          export TERM=xterm-color
-          ansible-playbook ./helpers/docker-playbook.yml -vv
-          ansible-playbook playbook.yml -vv
+      # - name: Deploy with Ansible
+      #   shell: bash
+      #   run: |
+      #     cd ansible
+      #     export ANSIBLE_CONFIG=./ansible.cfg
+      #     export ANSIBLE_FORCE_COLOR=True
+      #     export ANSIBLE_STDOUT_CALLBACK=yaml
+      #     export FORCE_COLOR=1
+      #     export TERM=xterm-color
+      #     ansible-playbook ./helper/docker-playbook.yml -vv
+      #     ansible-playbook playbook.yml -vv
