@@ -1,0 +1,43 @@
+name: deploy
+
+on:
+  push:
+    - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Containers
+        run: |
+          docker build -t witnet/witty-creatures-ui:latest ./ansible/docker/ui.dockerfile .
+          docker build -t witnet/witty-creatures-api:latest ./ansible/docker/api.dockerfile .
+      
+      - name: Publish Containers
+        run: |
+          docker push witnet/witty-creatures-ui:latest
+          docker push witnet/witty-creatures-api:latest
+      
+      - name: Login to Container Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Deploy with Ansible
+        run: |
+          export ANSIBLE_CONFIG=./ansible.cfg
+          export ANSIBLE_FORCE_COLOR=True
+          export ANSIBLE_STDOUT_CALLBACK=yaml
+          export FORCE_COLOR=1
+          export TERM=xterm-color
+          echo ${{secrets.ENVIRONMENT_VARIABLES}} > ./packages/ui/.env
+          echo ${{secrets.ENVIRONMENT_VARIABLES}} > ./packages/api/.env
+          echo ${{{secrets.ENVIRONMENT_VARIABLES}}} > ./ansible/.env
+          cd ansible
+          echo ${{secrets.ANSIBLE_INVENTORY}} > ./inventory.ini
+          echo ${{secrets.ANSIBLE_PRIVATE_KEY}} > ./key.pem
+          chmod 400 ./key.pem
+          ansible-playbook ./helpers/docker-playbook.yml -vv
+          ansible-playbook playbook.yml -vv
