@@ -22,7 +22,7 @@ services:
       - /home/ubuntu/witty-creatures/.env
     volumes:
       - /home/ubuntu/witty-creatures/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
-      - /home/ubuntu/witty-creatures:mongodb_data:/data/db
+      - /home/ubuntu/witty-creatures/mongodb_data:/data/db
     networks:
       - WC
     
