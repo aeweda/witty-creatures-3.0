@@ -33,12 +33,14 @@ jobs:
           ENVARS: ${{ secrets.ENVIRONMENT_VARIABLES }}
           AINV: ${{ secrets.ANSIBLE_INVENTORY }}
           APKEY: ${{ secrets.ANSIBLE_PRIVATE_KEY }}
+          CADDY: ${{ secrets.CADDY_FILE }}
         run: |
           echo "$ENVARS" > ./packages/ui/.env
           echo "$ENVARS" > ./packages/api/.env
           echo "$ENVARS" > ./ansible/.env
           echo "$AINV" > ./ansible/inventory.ini
           echo "$APKEY" > ./ansible/key.pem
+          echo "$CADDY" > ./ansible/Caddyfile
           chmod 400 ./ansible/key.pem
 
       - name: Deploy with Ansible

@@ -7,13 +7,24 @@
         state: directory
 
     - name: Copy .env File
-      copy: src=./.env dest=/home/ubuntu/witty-creatures/.env
+      copy:
+        src: ./.env
+        dest: /home/ubuntu/witty-creatures/.env
 
     - name: Copy Caddy File
-      copy: src=./Caddyfile dest=/home/ubuntu/witty-creatures/Caddyfile
+      copy:
+        src: ./Caddyfile
+        dest: /home/ubuntu/witty-creatures/Caddyfile
+
+    - name: Copy Mongo Script
+      copy:
+        src: ./examples/init-mongo.sh
+        dest: /home/ubuntu/witty-creatures/init-mongo.sh
 
     - name: Copy Docker Swarm Stack File
-      copy: src=./docker-compose.yml dest=/home/ubuntu/witty-creatures/docker-compose.yml
+      copy:
+        src: ./docker-compose.yml
+        dest: /home/ubuntu/witty-creatures/docker-compose.yml
     
     - name: Stack History limit
       shell: docker swarm update --task-history-limit 0
